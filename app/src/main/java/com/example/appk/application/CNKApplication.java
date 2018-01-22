@@ -2,6 +2,9 @@ package com.example.appk.application;
 
 import android.app.Application;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+
 /**
  * Created by 那个谁 on 2018/1/19.
  * 奥特曼打小怪兽
@@ -13,8 +16,14 @@ public class CNKApplication  extends Application{
     public void onCreate() {
         super.onCreate();
         this.instance=this;
+        initImageLoader();
     }
     public static CNKApplication getInstance(){
         return instance;
+    }
+
+    private void initImageLoader(){
+        ImageLoaderConfiguration configuration=ImageLoaderConfiguration.createDefault(this);
+        ImageLoader.getInstance().init(configuration);
     }
 }

@@ -1,6 +1,6 @@
 package com.example.appk.biz;
 
-import com.example.appk.entity.AdHeadBean;
+import com.example.appk.entity.HomeNews;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -22,8 +22,8 @@ public class HeadDataManager {
     /**
      * 进行根据地址抓取顶部广告数据
      */
-    public List<AdHeadBean> getHeadBeans(Document document){
-        List<AdHeadBean> adHeadBeen = new ArrayList<AdHeadBean>();
+    public List<HomeNews> getHeadBeans(Document document){
+        List<HomeNews> adHeadBeen = new ArrayList<HomeNews>();
         Elements elements = document.select("div.banner_cell-track");
         Elements links = elements.first().getElementsByTag("a");
         for (Element element : links){

@@ -12,7 +12,10 @@ import android.view.ViewGroup;
 import com.example.appk.R;
 import com.example.appk.adapter.FixedPagerAdapter;
 import com.example.appk.common.DefineView;
+import com.example.appk.entity.CategoriesBean;
 import com.example.appk.fragment.base.BaseFragment;
+import com.example.appk.ui.MainActivity;
+import com.example.appk.utils.CategoryDataUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,18 +26,18 @@ import java.util.List;
  * 作用：
  */
 
-public class MainInfoFragment extends BaseFragment implements DefineView {
+public class MainInfoFragment extends BaseFragment implements DefineView, ViewPager.OnPageChangeListener {
     private View mView;
     private TabLayout tab_layout;
     private ViewPager info_viewpager;
     private FixedPagerAdapter fixedPagerAdapter;
     private List<Fragment> fragments;
-    private String[] titles=new String[]{"全部","前沿科技","人工智能","物联网","大公司","文娱","体育","汽车","餐饮","城市","金融","企业服务"};
+    private static List<CategoriesBean> categoriesBeans= CategoryDataUtils.getCategoryBeans();
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        if (mView==null){
-            mView = inflater.inflate(R.layout.main_info_fragment_layout,container,false);
+        if (mView == null) {
+            mView = inflater.inflate(R.layout.main_info_fragment_layout, container, false);
             initView();
             initValidata();
             initListener();
@@ -45,17 +48,23 @@ public class MainInfoFragment extends BaseFragment implements DefineView {
 
     @Override
     public void initView() {
-        tab_layout=(TabLayout)mView.findViewById(R.id.tab_layout);
-        info_viewpager=(ViewPager)mView.findViewById(R.id.info_viewpager);
+        tab_layout = (TabLayout) mView.findViewById(R.id.tab_layout);
+        info_viewpager = (ViewPager) mView.findViewById(R.id.info_viewpager);
     }
 
     @Override
     public void initValidata() {
-        fixedPagerAdapter=new FixedPagerAdapter(getChildFragmentManager());
-        fixedPagerAdapter.setTitles(titles);
-        fragments=new ArrayList<Fragment>();
-        for(int i=0;i<titles.length;i++){
-            fragments.add(PageFragment.newInstance(titles[i]));
+        fixedPagerAdapter = new FixedPagerAdapter(getChildFragmentManager());
+        fixedPagerAdapter.setCategoriesBeen(categoriesBeans);
+        fragments = new ArrayList<Fragment>();
+        for (int i = 0; i < categoriesBeans.size(); i++) {
+            BaseFragment fragment=null;
+            if(i==0){
+                fragment= HomeFragment.newInstance(categoriesBeans.get(i));
+            }else{
+                fragment= PageFragment.newInstance(categoriesBeans.get(i));
+            }
+            fragments.add(fragment);
         }
 
         fixedPagerAdapter.setFragments(fragments);
@@ -70,11 +79,34 @@ public class MainInfoFragment extends BaseFragment implements DefineView {
 
     @Override
     public void initListener() {
+        //设置viewpager监听
+        info_viewpager.addOnPageChangeListener(this);
 
     }
 
     @Override
     public void bindData() {
+
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        //判断滑动
+        if (position == 0) {
+            ((MainActivity) getActivity()).getDrag_layout().setIsDrag(true);
+        } else {
+            ((MainActivity) getActivity()).getDrag_layout().setIsDrag(false);
+        }
+
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
 
     }
 }

@@ -2,7 +2,6 @@ package com.example.appk.entity;
 
 /**
  * Created by 那个谁 on 2018/1/20.
- * 主页作者
  */
 public class Mainbeen {
     private String avthor;

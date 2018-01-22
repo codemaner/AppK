@@ -2,7 +2,6 @@ package com.example.appk.entity;
 
 /**
  * Created by 那个谁 on 2018/1/20.
- * 作者
  */
 public class Infobeen {
     private String avthor;

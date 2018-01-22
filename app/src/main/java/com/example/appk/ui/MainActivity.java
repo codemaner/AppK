@@ -14,8 +14,14 @@ import com.nineoldandroids.view.ViewHelper;
 
 public class MainActivity extends BaseActivity implements DefineView {
     private DragLayout drag_layout;
+
+    public DragLayout getDrag_layout() {
+        return drag_layout;
+    }
+
     private ImageView top_bar_icon;
     private ListView lv_left_main;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,25 +32,30 @@ public class MainActivity extends BaseActivity implements DefineView {
         initListener();
         bindData();
     }
+
     public void initView() {
         drag_layout = (DragLayout) findViewById(R.id.drag_layout);
         top_bar_icon = (ImageView) findViewById(R.id.top_bar_icon);
         lv_left_main = findViewById(R.id.lv_left_main);
     }
+
     @Override
     public void initValidata() {
         lv_left_main.setAdapter(new LeftItemAdapter(this));
     }
+
     @Override
     public void initListener() {
         drag_layout.setDragListener(new CustomDragListener());
         top_bar_icon.setOnClickListener(new CustomOnClickListener());
     }
+
     @Override
     public void bindData() {
 
     }
-    class CustomDragListener implements DragLayout.DragListener{
+
+    class CustomDragListener implements DragLayout.DragListener {
 
         /**
          * 界面打开
@@ -64,14 +75,17 @@ public class MainActivity extends BaseActivity implements DefineView {
 
         /**
          * 界面进行滑动
+         *
          * @param percent
          */
         @Override
         public void onDrag(float percent) {
-            ViewHelper.setAlpha(top_bar_icon,1-percent);
+            //设置透明度
+            ViewHelper.setAlpha(top_bar_icon, 1 - percent);
         }
     }
-    class CustomOnClickListener implements View.OnClickListener{
+
+    class CustomOnClickListener implements View.OnClickListener {
         @Override
         public void onClick(View arg0) {
             drag_layout.open();

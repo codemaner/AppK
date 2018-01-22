@@ -1,12 +1,14 @@
 package com.example.appk.entity;
 
+import java.io.Serializable;
+
 /**
  * Created by 那个谁 on 2018/1/18.
  * 奥特曼打小怪兽
  * 作用：首页新闻资讯分类Tab信息实体类
  */
 
-public class CategoriesBean {
+public class CategoriesBean implements Serializable {
 	private String title; // 分类Tab名称
 	private String href; // 分类点击地址
 	private String data_type; // 分类类型

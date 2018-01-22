@@ -5,6 +5,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.view.ViewGroup;
 
+import com.example.appk.entity.CategoriesBean;
+
 import java.util.List;
 
 /**
@@ -15,10 +17,10 @@ import java.util.List;
 
 public class FixedPagerAdapter extends FragmentStatePagerAdapter {
 
-    private String[] titles;
+    private List<CategoriesBean> mCategoriesBeen;
 
-    public void setTitles(String[] titles) {
-        this.titles = titles;
+    public void setCategoriesBeen(List<CategoriesBean> categoriesBeen) {
+        mCategoriesBeen = categoriesBeen;
     }
 
     private List<Fragment> fragments;
@@ -58,6 +60,6 @@ public class FixedPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return titles[position % titles.length];
+        return mCategoriesBeen.get(position % mCategoriesBeen.size()).getTitle();
     }
 }
